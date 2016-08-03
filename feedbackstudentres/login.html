@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <title>Feedback - Student: Login</title>
+  </head>
+  <body>
+    <form method="POST" action="/login">
+      <input type="text" name="sectionid" placeholder="Enter Section ID">
+      <input type="password" name="password" placeholder="Enter Password">
+      <input type="hidden" name="formsid" value="{{.}}">
+      <input type="submit" name="Submit" value="Login">
+    </form>
+</html>
