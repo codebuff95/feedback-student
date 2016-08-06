@@ -6,6 +6,7 @@ import(
   "feedback-student/feedback"
   "feedback-student/question"
   "feedback-student/templates"
+  "feedback-student/college"
   "feedback-student/logout"
   "net/http"
   "github.com/codebuff95/uafm"
@@ -40,6 +41,9 @@ func main(){
   handlefatalerror(err)
 
   log.Println("Initialised Essential Templates")
+
+  err = college.InitCollegeDetails()
+  handlefatalerror(err)
 
   err = question.InitQuestions()
   handlefatalerror(err)
