@@ -28,6 +28,7 @@ type Feedback struct{
 
 type Rating struct{
   Facultyid string  `bson:"facultyid"`
+  Subjectid string `bson:"subjectid"`
   Points []Point  `bson:"points"`
 }
 
@@ -82,6 +83,7 @@ func parseFeedbackForm(w http.ResponseWriter, r *http.Request, sectionId string)
 
   for i,myTeacher := range *myTeachers{
     myFeedback.Ratings[i].Facultyid = myTeacher.Facultyid
+    myFeedback.Ratings[i].Subjectid = myTeacher.Subjectid
     myFeedback.Ratings[i].Points = make([]Point,len(*myQuestions))
     for qno,myQuestion := range *myQuestions{
       myFeedback.Ratings[i].Points[qno].Questionid = myQuestion.Questionid
