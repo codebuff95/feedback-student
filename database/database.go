@@ -12,6 +12,11 @@ var DatabaseName string
 var DatabaseSession *mgo.Session
 
 var SectionCollection *mgo.Collection
+var FacultyCollection *mgo.Collection
+var SubjectCollection *mgo.Collection
+var QuestionCollection *mgo.Collection
+var CourseCollection *mgo.Collection
+var FeedbackCollection *mgo.Collection
 
 type DatabaseDetails struct{
   Url string `json:"url"`
@@ -55,4 +60,9 @@ func InitDatabaseSession() error{
 func InitCollections(){
   //log.Println("**Initialising Essential Collections with Database",DatabaseName,"**")
   SectionCollection = DatabaseSession.DB(DatabaseName).C("section")
+  FacultyCollection = DatabaseSession.DB(DatabaseName).C("faculty")
+  SubjectCollection = DatabaseSession.DB(DatabaseName).C("subject")
+  QuestionCollection = DatabaseSession.DB(DatabaseName).C("question")
+  CourseCollection = DatabaseSession.DB(DatabaseName).C("course")
+  FeedbackCollection = DatabaseSession.DB(DatabaseName).C("feedback")
 }

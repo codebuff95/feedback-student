@@ -1,7 +1,7 @@
 package course
 
 import(
-  "feedback-admin/database"
+  "feedback-student/database"
   "log"
   "gopkg.in/mgo.v2/bson"
 )
@@ -20,5 +20,10 @@ func GetCourse(cid string) (*Course,error){
     log.Println("Could not get course.")
     return nil,err
   }
+  if myCourse.Courseid == ""{
+    log.Println("Course does not exist. Returning nil course.")
+    return nil,nil
+  }
+  log.Println("Successfully got Course")
   return myCourse,err
 }

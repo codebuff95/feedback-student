@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/resources/style.css">
+    <title>Feedback - Student: Feedback</title>
+  </head>
+  <body>
+    <p>
+      Information
+      <br><br>
+      <table>
+        <tr>
+          <td>
+            Section ID
+          </td>
+          <td>
+            {{.Sectionid}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Section Name
+          </td>
+          <td>
+            {{.Sectionname}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Course Name
+          </td>
+          <td>
+            {{.Coursename}}
+          </td>
+        </tr>
+      </table>
+    </p>
+
+    <!-- Form to take feedback for all Teachers start -->
+    <form method="POST" action="/feedback">
+      <input type="hidden" name="sectionid" value="{{.Sectionid}}">
+      <input type="hidden" name="formsid" value="{{.FormSid}}">
+    {{range $myDetailedTeacher := .DetailedTeachers}}
+    <!-- Table to describe teacher start -->
+    <table>
+      <tr>
+        <td>
+          Teacher ID
+        </td>
+        <td>
+          {{.Facultyid}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Teacher Name
+        </td>
+        <td>
+          {{.Facultyname}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Subject ID
+        </td>
+        <td>
+          {{.Subjectid}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Subject Name
+        </td>
+        <td>
+          {{.Subjectname}}
+        </td>
+      </tr>
+    </table>
+    <!-- Table to describe teacher end -->
+    <!-- Form elements for current teacher start-->
+    Feedback:<br>
+      <table>
+      {{range $.Questions}}
+        <tr>
+          <th>
+            {{.Text}}
+          </th>
+          <td>
+            <input type="number" min="1" max="{{.Weightage}}" name="{{$myDetailedTeacher.Facultyid}}~{{$myDetailedTeacher.Subjectid}}~{{.Questionid}}">
+          </td>
+        </tr>
+      {{end}}
+      </table>
+    <!-- Form elements for current teacher end-->
+    {{end}}
+    <input type="submit" value="Submit Feedback" name="submit">
+    </form>
+    <!-- Form to take feedback for all Teachers end -->
+  </body>
+  <footer>
+    <a href="/logout">Logout</a>
+  </footer>
+</html>

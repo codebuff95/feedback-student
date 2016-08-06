@@ -35,7 +35,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request){
   userId, err := user.AuthenticateRequest(r)
   if err == nil{ //user session authentic. Redirect to home page.
     log.Println("User session is authentic with UserId:",*userId,", redirecting to homepage.")
-    http.Redirect(w, r, "/home", http.StatusSeeOther)
+    http.Redirect(w, r, "/feedback", http.StatusSeeOther)
     return
   }
   log.Println("User Session not authentic:",err)
