@@ -12,7 +12,7 @@ import(
 
 type Student struct{
   Sectionid *string `bson:"sectionid" json:"sectionid"`
-  Password string `bson:"password" json:"password"`
+  //Password string `bson:"password" json:"password"`
 }
 
 func AuthenticateRequest(r *http.Request) (*string,error){
@@ -39,7 +39,7 @@ func AuthenticateLoginAttempt(r *http.Request) (*Student,error){
   log.Println("Attempt sectionid :", attemptSectionid, ", Attempt Password:", attemptPassword)
   var myStudent Student = Student{}
   err := database.SectionCollection.
-            Find(bson.M{"sectionid":attemptSectionid, "password":attemptPassword}).
+            Find(bson.M{"sectionid" : attemptSectionid, "passwords" : attemptPassword}).
                 Limit(1).One(&myStudent)
   if err != nil{
     log.Println("Error finding requested section in collection:",err)
@@ -49,4 +49,12 @@ func AuthenticateLoginAttempt(r *http.Request) (*Student,error){
     log.Println("Could not find section with supplied credentials. Returning nil Student")
   }
   return &myStudent,err
+}
+
+//RemovePassword removes the password which was entered in login request from the passwords field
+//of section in the SectionCollection.
+func RemovePassword(r *http.Request) error{
+  attemptSectionid := template.HTMLEscapeString(r.Form.Get("sectionid"))       //Escape special characters for security.
+  attemptPassword := template.HTMLEscapeString(r.Form.Get("password"))       //Escape special characters for security.
+  return database.SectionCollection.Update(bson.M{"sectionid":attemptSectionid},bson.M{"$pull" : bson.M{"passwords" : attemptPassword}})
 }

@@ -63,7 +63,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request){
   //Login Attempt Authentication begin.
   attemptStudent,err := user.AuthenticateLoginAttempt(r)
   if err != nil || attemptStudent == nil{
-    displayBadPage(w,r,errors.New("Section with given credentials does not exist"))
+    displayBadPage(w,r,errors.New("Given credentials do not exist"))
     return
   }
 
@@ -74,9 +74,16 @@ func LoginHandler(w http.ResponseWriter, r *http.Request){
     displayBadPage(w,r,err)
     return
   }
-  myCookie := &http.Cookie{Name:"usersid",Value:*newUserSid}  //Cookie is not persistent for security purposes.
+  myCookie := &http.Cookie{Name:"usersid",Value:*newUserSid, Expires: time.Now().Add(time.Minute * 60)}  //Cookie is being made persistent so that the password of the section can be deleted.
   http.SetCookie(w, myCookie)
-  log.Println("usersid Cookie successfully set on client. Redirecting to feedbackpage.")
+  log.Println("usersid Cookie successfully set on client. Deleting password from sectionid")
+  err = user.RemovePassword(r)
+  if err != nil{
+    log.Println("Error removing password for logging in user.")
+    displayBadPage(w,r,errors.New("Error completing log in sequence"))
+    return
+  }
+  log.Println("Success removing password. Redirecting to feedback page.")
   http.Redirect(w, r, "/feedback", http.StatusSeeOther)
   return
 }

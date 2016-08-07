@@ -28,7 +28,7 @@ type Section struct{
   Session int `bson:"session"`
   Courseid string `bson:"courseid"`
   Teachers *[]Teacher `bson:"teachers,omitempty"`
-  Password string `bson:"password"`
+  //Password string `bson:"password"`
   Students int `bson:"students"`
   Addedon string  `bson:"addedon"`
 }
