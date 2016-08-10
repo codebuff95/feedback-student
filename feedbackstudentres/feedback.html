@@ -1,103 +1,118 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="/resources/style.css">
+<html lang="en">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+    <meta charset="UTF-8">
     <title>Feedback - Student: Feedback</title>
-  </head>
-  <body>
-    <p>
-      Information
-      <br><br>
-      <table>
-        <tr>
-          <td>
-            Section ID
-          </td>
-          <td>
-            {{.Sectionid}}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Section Name
-          </td>
-          <td>
-            {{.Sectionname}}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Course Name
-          </td>
-          <td>
-            {{.Coursename}}
-          </td>
-        </tr>
-      </table>
-    </p>
-
-    <!-- Form to take feedback for all Teachers start -->
-    <form method="POST" action="/feedback">
-      <input type="hidden" name="sectionid" value="{{.Sectionid}}">
-      <input type="hidden" name="formsid" value="{{.FormSid}}">
-    {{range $myDetailedTeacher := .DetailedTeachers}}
-    <!-- Table to describe teacher start -->
-    <table>
-      <tr>
-        <td>
-          Teacher ID
-        </td>
-        <td>
-          {{.Facultyid}}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Teacher Name
-        </td>
-        <td>
-          {{.Facultyname}}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Subject ID
-        </td>
-        <td>
-          {{.Subjectid}}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Subject Name
-        </td>
-        <td>
-          {{.Subjectname}}
-        </td>
-      </tr>
-    </table>
-    <!-- Table to describe teacher end -->
-    <!-- Form elements for current teacher start-->
-    Feedback:<br>
-      <table>
-      {{range $.Questions}}
-        <tr>
-          <th>
-            {{.Text}}
-          </th>
-          <td>
-            <input type="number" min="1" max="{{.Weightage}}" name="{{$myDetailedTeacher.Facultyid}}~{{$myDetailedTeacher.Subjectid}}~{{.Questionid}}">
-          </td>
-        </tr>
-      {{end}}
-      </table>
-    <!-- Form elements for current teacher end-->
-    {{end}}
-    <input type="submit" value="Submit Feedback" name="submit">
-    </form>
-    <!-- Form to take feedback for all Teachers end -->
-  </body>
-  <footer>
-    <a href="/logout">Logout</a> (Alert: Logging in once again with your Section ID and password is not possible. You will not be able to submit the feedback if you log out now.)
-  </footer>
+	 <link rel="icon" href="#" type="image/x-icon">
+    <!-- For mobile first-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- For Bootstrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- For Social Icons -->
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+	<!-- For CSS File -->
+	<link rel="stylesheet" href="/resources/feedbackstyle.css">
+</head>
+<body>
+<!-- Top navbar starts -->
+<nav class="navbar navbar-inverse">
+	 <div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#"><h3><b>College Name </b></h3></a>
+		</div>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="/logout"><span class="glyphicon glyphicon-log-out" id="logout"></span></a></li>
+			<!-- Some condition here in logout -->
+		</ul>
+	</div>
+</nav>
+<!-- Top navbar ends -->
+<center>
+<!-- Information panel starts -->
+	<div class="panel panel-default">
+		<h1>Information !!</h1>
+		<br>
+		<hr>
+		<table class="table table-hover table-bordered">
+			<tr>
+				<td><b>Section ID</b></td>
+				<td>{{.Sectionid}}</td>
+			</tr>
+			<tr>
+				<td><b>Section Name</b></td>
+				<td>{{.Sectionname}}</td>
+			</tr>
+			<tr>
+				<td><b>Course Name</b></td>
+				<td>{{.Coursename}}</td>
+			</tr>
+		</table>
+		<hr>
+		<br>
+		<!-- Feedback Form starts -->
+			<!-- teachers info starts -->
+			<form method="POST" action="/feedback">
+				<input type="hidden" name="sectionid" value="{{.Sectionid}}">
+				<input type="hidden" name="formsid" value="{{.FormSid}}">
+				<!--{{range $myDetailedTeacher := .DetailedTeachers}}-->
+				<table class="table table-hover table-bordered">
+					<tr>
+						<td><b>Teacher's ID</b></td>
+						<td>{{.Facultyid}}</td>
+					</tr>
+					<tr>
+						<td><b>Teacher's Name</b></td>
+						<td>{{.Facultyname}}</td>
+					</tr>
+					<tr>
+						<td><b>Subject ID</b></td>
+						<td>{{.Subjectid}}</td>
+					</tr>
+					<tr>
+						<td><b>Subject Name</b></td>
+						<td>{{.Subjectname}}</td>
+					</tr>
+					<tr>
+					<td></td>
+					<td><a href="#" data-toggle="modal" data-target="#FeedbackModal"><button type="submit" name="submit" value="Feedback">Give Feedback</button></a></td>
+					</tr>
+				</table>
+			</form>
+			<!-- teachers info ends -->
+			<!-- feedback modal starts -->
+				<div id="FeedbackModal" class="modal fade">
+					<div class="modal-dialog">	
+						<div class="modal-content" id="big">
+							<div class="modal-header" style="background-color:#4CAF50">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<center><h2 class="modal-title" >Feedback Form</h2></center>
+							</div>
+							<div class="modal-body">
+							<!-- I guess ye bhi form hoga n isko abhi link mene ek button se kia h bt i think this is not something u were saying :( -->
+							<!--	<table>
+									{{range $.Questions}}
+									<tr>
+										<th>{{.Text}}</th>
+										<td>
+											<input type="number" min="1" max="{{.Weightage}}" name="{{$myDetailedTeacher.Facultyid}}~{{$myDetailedTeacher.Subjectid}}~{{.Questionid}}">
+										</td>
+									</tr>
+									{{end}}
+								</table> -->
+								<button type="submit" value="Submit Feedback" name="submit"><b>submit</b></button>
+							</div>
+							</div>
+						</div>
+					</div>
+			<!-- feedback modal ends -->
+		<!-- Feedback Form ends -->
+		<br>
+	</div>
+<!-- Information panel ends -->
+</body>
 </html>
