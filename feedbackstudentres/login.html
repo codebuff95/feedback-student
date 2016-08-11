@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="/resources/loginstyle.css">
 </head>
 <body>
+  <!-- Create a top navigation for College name. Use {{.Collegename}} for the collegename -->
 <div>
 	<center>
 	<div class="panel panel-default">
@@ -31,12 +32,12 @@
 		<br><br>
 		<label><b>Section ID</b></label>
 		<br>
-		<input type="text" name="username" placeholder="Enter Setion ID">
+		<input type="text" name="sectionid" placeholder="Enter Setion ID">
 		<br><br>
 		<label><b>Password</b></label>
 		<br>
 		<input type="password" name="password" placeholder="Enter Password">
-		<input type="hidden" name="formsid" value="{{.}}">
+		<input type="hidden" name="formsid" value="{{.Formsid}}">
 		<br><br>
 		<button type="submit" name="Submit" value="Login"><b>Login</b></button>
 		<br><br>

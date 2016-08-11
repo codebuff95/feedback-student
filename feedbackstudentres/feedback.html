@@ -23,7 +23,7 @@
 <nav class="navbar navbar-inverse">
 	 <div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#"><h3><b>College Name </b></h3></a>
+			<a class="navbar-brand" href="#"><h3><b>{{.Collegename}}</b></h3></a>
 		</div>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="/logout"><span class="glyphicon glyphicon-log-out" id="logout"></span></a></li>
@@ -35,7 +35,7 @@
 <center>
 <!-- Information panel starts -->
 	<div class="panel panel-default">
-		<h1>Information !!</h1>
+		<h1>Feedback Form</h1>
 		<br>
 		<hr>
 		<table class="table table-hover table-bordered">
@@ -59,57 +59,65 @@
 			<form method="POST" action="/feedback">
 				<input type="hidden" name="sectionid" value="{{.Sectionid}}">
 				<input type="hidden" name="formsid" value="{{.FormSid}}">
-				<!--{{range $myDetailedTeacher := .DetailedTeachers}}-->
 				<table class="table table-hover table-bordered">
 					<tr>
-						<td><b>Teacher's ID</b></td>
-						<td>{{.Facultyid}}</td>
+						<td><b>Teacher ID</b></td>
+            <td><b>Teacher Name</b></td>
+            <td><b>Subject ID</b></td>
+            <td><b>Subject Name</b></td>
+            <td></td>
 					</tr>
-					<tr>
-						<td><b>Teacher's Name</b></td>
-						<td>{{.Facultyname}}</td>
-					</tr>
-					<tr>
-						<td><b>Subject ID</b></td>
-						<td>{{.Subjectid}}</td>
-					</tr>
-					<tr>
-						<td><b>Subject Name</b></td>
-						<td>{{.Subjectname}}</td>
-					</tr>
-					<tr>
-					<td></td>
-					<td><a href="#" data-toggle="modal" data-target="#FeedbackModal"><button type="submit" name="submit" value="Feedback">Give Feedback</button></a></td>
-					</tr>
+          {{range $myDetailedTeacher := .DetailedTeachers}}
+  					<tr>
+  						<td>{{.Facultyid}}</td>
+              <td>{{.Facultyname}}</td>
+              <td>{{.Subjectid}}</td>
+              <td>{{.Subjectname}}</td>
+              <td>
+                <a href="#" data-toggle="modal" data-target="#FM{{.Facultyid}}-{{.Subjectid}}"><button type="submit" name="submit" value="Feedback">Give Feedback</button></a>
+                <!-- feedback modal starts -->
+          				<div id="FM{{.Facultyid}}-{{.Subjectid}}" class="modal fade">
+          					<div class="modal-dialog">
+          						<div class="modal-content" id="big">
+          							<div class="modal-header" style="background-color:#4CAF50">
+          								<button type="button" class="close" data-dismiss="modal">&times;</button>
+          								<center><h2 class="modal-title" >Teacher-wise Feedback</h2></center>
+          							</div>
+          							<div class="modal-body">
+                          <label><b>Teacher Name: {{.Facultyname}}</b></label>
+                          <br>
+                          <label><b>Subject Name: {{.Subjectname}}</b></label>
+                          <hr>
+                          <table class="table table-hover table-bordered">
+                            <thead>													<!-- Make table dynamic -->
+                              <tr>
+                                <th><b>Question</b></th>
+                                <th><b>Rating</b></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {{range $.Questions}}
+                                <tr>
+                                  <td>{{.Text}}</td>
+                                  <td>
+                                    <input type="number" min="1" max="{{.Weightage}}" name="{{$myDetailedTeacher.Facultyid}}~{{$myDetailedTeacher.Subjectid}}~{{.Questionid}}">
+                                  </td>
+                                </tr>
+                              {{end}}
+                            </tbody>
+                          </table>
+          							</div>
+          							</div>
+          						</div>
+          					</div>
+          			<!-- feedback modal ends -->
+              </td>
+  					</tr>
+          {{end}}<!--End range over Teachers-->
+    			<!-- teachers info ends -->
 				</table>
+        <input type="submit" value="Submit Feedback" name="submit">
 			</form>
-			<!-- teachers info ends -->
-			<!-- feedback modal starts -->
-				<div id="FeedbackModal" class="modal fade">
-					<div class="modal-dialog">	
-						<div class="modal-content" id="big">
-							<div class="modal-header" style="background-color:#4CAF50">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<center><h2 class="modal-title" >Feedback Form</h2></center>
-							</div>
-							<div class="modal-body">
-							<!-- I guess ye bhi form hoga n isko abhi link mene ek button se kia h bt i think this is not something u were saying :( -->
-							<!--	<table>
-									{{range $.Questions}}
-									<tr>
-										<th>{{.Text}}</th>
-										<td>
-											<input type="number" min="1" max="{{.Weightage}}" name="{{$myDetailedTeacher.Facultyid}}~{{$myDetailedTeacher.Subjectid}}~{{.Questionid}}">
-										</td>
-									</tr>
-									{{end}}
-								</table> -->
-								<button type="submit" value="Submit Feedback" name="submit"><b>submit</b></button>
-							</div>
-							</div>
-						</div>
-					</div>
-			<!-- feedback modal ends -->
 		<!-- Feedback Form ends -->
 		<br>
 	</div>

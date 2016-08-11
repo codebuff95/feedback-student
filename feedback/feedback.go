@@ -8,6 +8,7 @@ import(
   "feedback-student/question"
   "feedback-student/user"
   "feedback-student/section"
+  "feedback-student/college"
   "feedback-student/templates"
   "feedback-student/database"
   "net/http"
@@ -44,6 +45,7 @@ type FeedbackPage struct{
   DetailedTeachers *[]section.DetailedTeacher `bson:"detailedteachers"`
   Questions *[]question.Question
   FormSid *string
+  Collegename *string
 }
 
 func parseFeedbackForm(w http.ResponseWriter, r *http.Request, sectionId string){
@@ -130,6 +132,7 @@ func displayFeedbackForm(w http.ResponseWriter, r *http.Request,sectionId string
   log.Println("Successfully created feedback formSession for section ID:",mySection.Sectionid)
   var myFeedbackPage FeedbackPage
   myFeedbackPage.FormSid = formSid
+  myFeedbackPage.Collegename = &college.GlobalDetails.Collegename
   myFeedbackPage.Sectionid = &mySection.Sectionid
   myFeedbackPage.Sectionname = &mySection.Sectionname
 
