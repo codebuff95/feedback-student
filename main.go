@@ -1,63 +1,64 @@
 package main
 
-import(
-  "feedback-student/login"
-  "feedback-student/database"
-  "feedback-student/feedback"
-  "feedback-student/question"
-  "feedback-student/templates"
-  "feedback-student/college"
-  "feedback-student/logout"
-  "net/http"
-  "github.com/codebuff95/uafm"
-  "log"
+import (
+	"feedback-student/college"
+	"feedback-student/database"
+	"feedback-student/feedback"
+	"feedback-student/login"
+	"feedback-student/logout"
+	"feedback-student/question"
+	"feedback-student/templates"
+	"log"
+	"net/http"
+
+	"github.com/codebuff95/uafm"
 )
 
-func handlefatalerror(err error){
-  if err != nil{
-    log.Fatal("*_*_* Fatal Error:",err,"*_*_*")
-  }
+func handlefatalerror(err error) {
+	if err != nil {
+		log.Fatal("*_*_* Fatal Error:", err, "*_*_*")
+	}
 }
 
-func MyHandler(w http.ResponseWriter, r *http.Request){
-  http.Redirect(w, r, "/login", http.StatusSeeOther)
-  return
+func MyHandler(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
+	return
 }
 
-func main(){
+func main() {
 
-  err := uafm.Init("feedbackadminres","studentsession","formsession") //make sure that
-  // usersession collection of admin and student account types are different.
-  handlefatalerror(err)
+	err := uafm.Init("feedbackadminres", "studentsession", "formsession") //make sure that
+	// usersession collection of admin and student account types are different.
+	handlefatalerror(err)
 
-  err = database.InitDatabaseSession()
-  handlefatalerror(err)
+	err = database.InitDatabaseSession()
+	handlefatalerror(err)
 
-  database.InitCollections()
+	database.InitCollections()
 
-  log.Println("Initialised Database Collections")
+	log.Println("Initialised Database Collections")
 
-  err = templates.InitEssentialTemplates()
-  handlefatalerror(err)
+	err = templates.InitEssentialTemplates()
+	handlefatalerror(err)
 
-  log.Println("Initialised Essential Templates")
+	log.Println("Initialised Essential Templates")
 
-  err = college.InitCollegeDetails()
-  handlefatalerror(err)
+	err = college.InitCollegeDetails()
+	handlefatalerror(err)
 
-  err = question.InitQuestions()
-  handlefatalerror(err)
+	err = question.InitQuestions()
+	handlefatalerror(err)
 
-  log.Println("Initialised Questions")
+	log.Println("Initialised Questions")
 
-  http.HandleFunc("/",MyHandler)
-  http.HandleFunc("/login",login.LoginHandler)
-  http.HandleFunc("/feedback",feedback.FeedbackHandler)
+	http.HandleFunc("/", MyHandler)
+	http.HandleFunc("/login", login.LoginHandler)
+	http.HandleFunc("/feedback", feedback.FeedbackHandler)
 
-  http.HandleFunc("/logout",logout.LogoutHandler)
+	http.HandleFunc("/logout", logout.LogoutHandler)
 
-  //Start file server for public files.
-  http.Handle("/resources/",http.StripPrefix("/resources/",http.FileServer(http.Dir("feedbackstudentres/publicres"))))
+	//Start file server for public files.
+	http.Handle("/resources/", http.StripPrefix("/resources/", http.FileServer(http.Dir("feedbackstudentres/publicres"))))
 
-  http.ListenAndServe(":8080",nil)
+	http.ListenAndServe(":8081", nil)
 }
