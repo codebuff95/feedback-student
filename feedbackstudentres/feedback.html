@@ -26,8 +26,7 @@
 			<a class="navbar-brand" href="#"><h3><b>{{.Collegename}}</b></h3></a>
 		</div>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="/logout"><span class="glyphicon glyphicon-log-out" id="logout"></span></a></li>
-			<!-- Some condition here in logout -->
+			<li><a href="/logout" data-toggle="tooltip" data-placement="auto" title="Alert : Logging in once again with your Section ID and password is not possible. You will not be able to submit the feedback if you log out now."><span class="glyphicon glyphicon-log-out" id="logout"></span></a></li>
 		</ul>
 	</div>
 </nav>
@@ -38,6 +37,7 @@
 		<h1>Feedback Form</h1>
 		<br>
 		<hr>
+		<div id="sec">
 		<table class="table table-hover table-bordered">
 			<tr>
 				<td><b>Section ID</b></td>
@@ -52,11 +52,12 @@
 				<td>{{.Coursename}}</td>
 			</tr>
 		</table>
+		</div>
 		<hr>
 		<br>
 		<!-- Feedback Form starts -->
 			<!-- teachers info starts -->
-			<form method="POST" action="/feedback">
+			<form method="POST" action="/feedback" style="margin-left:5px; margin-right:20px;">
 				<input type="hidden" name="sectionid" value="{{.Sectionid}}">
 				<input type="hidden" name="formsid" value="{{.FormSid}}">
 				<table class="table table-hover table-bordered">
