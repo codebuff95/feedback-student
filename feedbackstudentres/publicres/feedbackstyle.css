@@ -1,4 +1,17 @@
-	body
+@font-face {
+  font-family: 'Poiret One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poiret One'), local('PoiretOne-Regular'), url(https://fonts.gstatic.com/s/poiretone/v4/HrI4ZJpJ3Fh0wa5ofYMK8RsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Raleway Light'), local('Raleway-Light'), url(https://fonts.gstatic.com/s/raleway/v11/-_Ctzj9b56b8RgXW8FAriRsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+
+body
 	{
 		background-image:url("back1.jpg");
 		background-size: cover;
@@ -17,26 +30,32 @@
 	{
 		font-size:25px; 
 		color:white; 
-		padding 4px;
+		padding: 4px;
 		text-shadow:1px 1px #e6e6e6;
 	}
 	.panel
 	{
-		width:600px;
+		width:900px;
 		margin-top:50px;
 	}
 	h1
 	{
-		<!--color:#f44336;-->
 		color:black;
 		font-family: "Raleway","Palatino Linotype", "Book Antiqua", Palatino, serif;
 		font-weight:bold;
 		font-size:50px;
 	}
-	table
+	.table
 	{
 		padding:10px;
-		
+		margin-left:10px;
+		margin-right:10px;
+		width:100%;
+	}
+	#sec
+	{
+		margin-left:5px; 
+		margin-right:20px;
 	}
 	button[type=submit]
 	{

@@ -9,9 +9,9 @@
     <!-- For mobile first-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- For Bootstrap -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="resources/bootstrap-3.3.7/css/bootstrap.min.css">
+    <script src="resources/jquery/jquery-3.1.0.min.js"></script>
+    <script src="resources/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- For Social Icons -->
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -19,24 +19,32 @@
 	<link rel="stylesheet" href="/resources/loginstyle.css">
 </head>
 <body>
+  <!--top navigation for College name.-->
+  <nav class="navbar navbar-inverse">
+	 <div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#"><h3><b>{{.Collegename}}</b></h3></a>
+		</div>
+	</div>
+</nav>
 <div>
 	<center>
 	<div class="panel panel-default">
 	<form method="POST" action="/login">
 		<center>
 		<div class="imgcontainer">
-			<img src="/resources/dpic.jpg" alt="Profile Pic" height="200px" width="200px" style="border-radius:180px;">
+			<img src="/resources/studentpic.png" alt="Profile Pic" height="200px" width="200px" style="border-radius:180px;">
 		</div>
-		</center>							<!-- used ur code, still check the links -->
+		</center>
 		<br><br>
 		<label><b>Section ID</b></label>
 		<br>
-		<input type="text" name="username" placeholder="Enter Setion ID">
+		<input type="text" name="sectionid" placeholder="Enter Setion ID">
 		<br><br>
 		<label><b>Password</b></label>
 		<br>
 		<input type="password" name="password" placeholder="Enter Password">
-		<input type="hidden" name="formsid" value="{{.}}">
+		<input type="hidden" name="formsid" value="{{.Formsid}}">
 		<br><br>
 		<button type="submit" name="Submit" value="Login"><b>Login</b></button>
 		<br><br>
