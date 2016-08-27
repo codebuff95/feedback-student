@@ -3,6 +3,7 @@ package question
 import (
 	"errors"
 	"feedback-student/database"
+	"log"
 )
 
 type Question struct {
@@ -12,11 +13,16 @@ type Question struct {
 }
 
 var GlobalQuestions []Question
+var GlobalTextQuestions []Question
 
 func InitQuestions() error {
-	err := database.QuestionCollection.Find(nil).All(&GlobalQuestions)
+	database.QuestionCollection.Find(nil).All(&GlobalQuestions)
 	if len(GlobalQuestions) == 0 {
 		return errors.New("No questions found")
 	}
-	return err
+	database.TextQuestionCollection.Find(nil).All(&GlobalTextQuestions)
+	if len(GlobalTextQuestions) == 0 {
+		log.Println("Could not find any text qquestions")
+	}
+	return nil
 }
