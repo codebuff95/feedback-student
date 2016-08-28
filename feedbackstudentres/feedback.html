@@ -17,6 +17,16 @@
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 	<!-- For CSS File -->
 	<link rel="stylesheet" href="/resources/feedbackstyle.css">
+	<script>
+	function warn(this.value,{{.Weightage}})
+	{
+		if(this.value>{{.Weightage}} && || this.value<1)
+		{
+			document.getElementById("rate").style.color = "red";
+			document.getElementById("rate").style.border-color = "red";
+		}
+	}
+	</script>
 </head>
 <body>
 <!-- Top navbar starts -->
@@ -101,7 +111,7 @@
                                 <tr>
                                   <td>{{.Text}}</td>
                                   <td>
-                                    <input type="number" min="1" max="{{.Weightage}}" name="{{$myDetailedTeacher.Facultyid}}~{{$myDetailedTeacher.Subjectid}}~{{.Questionid}}">
+                                    <input type="number" min="1" max="{{.Weightage}}" id="rate" onchange="warn(this.value,{{.Weightage}})" name="{{$myDetailedTeacher.Facultyid}}~{{$myDetailedTeacher.Subjectid}}~{{.Questionid}}">
                                   </td>
                                 </tr>
                               {{end}}
