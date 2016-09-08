@@ -18,13 +18,18 @@
 	<!-- For CSS File -->
 	<link rel="stylesheet" href="/resources/feedbackstyle.css">
 	<script>
-	function warn(this.value,{{.Weightage}})
+	function warner(ele)
 	{
-		if(this.value>{{.Weightage}} && || this.value<1)
+    /*console.log('value changed for element name :' + ele.name + 'to value:'+ele.value);*/
+		if(ele.value > ele.max || ele.value<1)
 		{
-			document.getElementById("rate").style.color = "red";
-			document.getElementById("rate").style.border-color = "red";
+			//ele.style.color = "red";
+      document.getElementById("alert~"+ele.name).style.visibility = 'visible';
 		}
+    else{
+      //ele.style.color = "black";
+      document.getElementById("alert~"+ele.name).style.visibility = 'hidden';
+    }
 	}
 	</script>
 </head>
@@ -111,7 +116,7 @@
                                 <tr>
                                   <td>{{.Text}}</td>
                                   <td>
-                                    <input type="number" min="1" max="{{.Weightage}}" id="rate" onchange="warn(this.value,{{.Weightage}})" name="{{$myDetailedTeacher.Facultyid}}~{{$myDetailedTeacher.Subjectid}}~{{.Questionid}}">
+                                    <input type="number" min="1" max="{{.Weightage}}" id="rate" onchange="warner(this)" name="{{$myDetailedTeacher.Facultyid}}~{{$myDetailedTeacher.Subjectid}}~{{.Questionid}}"><span class="glyphicon glyphicon-alert red" id="alert~{{$myDetailedTeacher.Facultyid}}~{{$myDetailedTeacher.Subjectid}}~{{.Questionid}}"></span>
                                   </td>
                                 </tr>
                               {{end}}

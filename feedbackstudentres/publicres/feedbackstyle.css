@@ -1,3 +1,7 @@
+	.red
+	{
+	color: red;
+	}
 	body
 	{
 		background-image:url("back1.jpg");
@@ -9,14 +13,14 @@
 	h3
 	{
 		color:white;
-		font-size:30px; 
-		font-family:'Raleway','Palatino Linotype', 'Book Antiqua', Palatino, serif; 
+		font-size:30px;
+		font-family:'Raleway','Palatino Linotype', 'Book Antiqua', Palatino, serif;
 		margin-top:-5px;
 	}
 	#logout
 	{
-		font-size:25px; 
-		color:white; 
+		font-size:25px;
+		color:white;
 		padding: 4px;
 		text-shadow:1px 1px #e6e6e6;
 	}
@@ -41,7 +45,7 @@
 	}
 	#sec
 	{
-		margin-left:5px; 
+		margin-left:5px;
 		margin-right:20px;
 	}
 	button[type=submit]
