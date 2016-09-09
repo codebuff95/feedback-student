@@ -20,6 +20,7 @@
 	<script>
 	function warner(ele)
 	{
+    var elenamesplit = ele.name.split("~")
     /*console.log('value changed for element name :' + ele.name + 'to value:'+ele.value);*/
 		if(ele.value > ele.max || ele.value<1)
 		{
@@ -123,6 +124,9 @@
                             </tbody>
                           </table>
           							</div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+                        </div>
           							</div>
           						</div>
           					</div>
